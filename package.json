@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "buffer": "^6.0.3",
-    "eth-object": "^1.0.3",
+    "eth-object": "github:kobigurk/celo-object#a9a825bbac6392e968f1b05619606901710518fc",
     "eth-util-lite": "^1.0.1",
     "isomorphic-rpc": "^1.2.1",
     "merkle-patricia-tree": "github:zmitton/merkle-patricia-tree#build",
