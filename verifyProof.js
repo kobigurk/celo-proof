@@ -2,11 +2,11 @@ const { keccak, encode, decode, toBuffer, toWord } = require('eth-util-lite')
 
 const Tree = require('merkle-patricia-tree')
 
-const { Account, Receipt, Transaction } = require('eth-object')
+const { Account, Receipt, Transaction, Header } = require('eth-object')
 
-const ACCOUNTS_ROOT_INDEX = 3 // within header
-const TXS_ROOT_INDEX      = 4 // within header
-const RECEIPTS_ROOT_INDEX = 5 // within header
+const ACCOUNTS_ROOT_INDEX = 2 // within header
+const TXS_ROOT_INDEX      = 3 // within header
+const RECEIPTS_ROOT_INDEX = 4 // within header
 
 const STORAGE_ROOT_INDEX  = 2 // within account
 const SET_OF_LOGS_INDEX   = 3 // within receipt
@@ -21,7 +21,7 @@ class Verify{
     return account[STORAGE_ROOT_INDEX]
   }
   static getBlockHashFromHeader(header){
-    const copiedHeader = JSON.parse(JSON.stringify(header));
+    const copiedHeader = Header.fromRaw(decode(encode(header)));
     const extraDataDecoded = decode(copiedHeader.extraData.slice(32));
     extraDataDecoded[4][0] = new Uint8Array();
     extraDataDecoded[4][1] = new Uint8Array();
