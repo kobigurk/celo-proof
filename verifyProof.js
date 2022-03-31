@@ -21,7 +21,14 @@ class Verify{
     return account[STORAGE_ROOT_INDEX]
   }
   static getBlockHashFromHeader(header){
-    return keccak(encode(header))
+    const copiedHeader = decode(encode(header));
+    const extraDataDecoded = RLP.decode(copiedHeader.extraData.slice(32));
+    extraDataDecoded[4][0] = new Uint8Array();
+    extraDataDecoded[4][1] = new Uint8Array();
+    extraDataDecoded[4][2] = new Uint8Array();
+    copiedHeader[9] = new Uint8Array([ ...copiedHeader.extraData.slice(0, 32), ...RLP.encode(extraDataDecoded)]);
+
+    return keccak(encode(copiedHeader))
   }
   static getElemFromHeaderAt(header, indexOfRoot){
     return header[indexOfRoot]
