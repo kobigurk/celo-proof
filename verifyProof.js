@@ -21,14 +21,12 @@ class Verify{
     return account[STORAGE_ROOT_INDEX]
   }
   static getBlockHashFromHeader(header){
-    console.log(header);
-    const copiedHeader = decode(encode(header));
-    console.log(copiedHeader);
+    const copiedHeader = JSON.parse(JSON.stringify(header));
     const extraDataDecoded = decode(copiedHeader.extraData.slice(32));
     extraDataDecoded[4][0] = new Uint8Array();
     extraDataDecoded[4][1] = new Uint8Array();
     extraDataDecoded[4][2] = new Uint8Array();
-    copiedHeader[9] = new Uint8Array([ ...copiedHeader.extraData.slice(0, 32), ...RLP.encode(extraDataDecoded)]);
+    copiedHeader[9] = new Uint8Array([ ...copiedHeader.extraData.slice(0, 32), ...encode(extraDataDecoded)]);
 
     return keccak(encode(copiedHeader))
   }
