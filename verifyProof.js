@@ -22,7 +22,7 @@ class Verify{
   }
   static getBlockHashFromHeader(header){
     const copiedHeader = decode(encode(header));
-    const extraDataDecoded = RLP.decode(copiedHeader.extraData.slice(32));
+    const extraDataDecoded = decode(copiedHeader.extraData.slice(32));
     extraDataDecoded[4][0] = new Uint8Array();
     extraDataDecoded[4][1] = new Uint8Array();
     extraDataDecoded[4][2] = new Uint8Array();
